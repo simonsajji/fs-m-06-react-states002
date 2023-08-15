@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { marked } from 'marked';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [markdownContent, setMarkdownContent] = useState('');
+  
+    const handleMarkdownChange = (event) => {
+      setMarkdownContent(event.target.value);
+    };
+  
+    return (
+      <div className="App">
+        {/* <h1>Markdown Editor</h1> */}
+        <div className="editor">
+          <textarea
+            value={markdownContent}
+            onChange={handleMarkdownChange}
+            rows={15}
+            cols={50}
+          />
+        </div>
+        <div className="preview">
+          {/* <h2>Preview</h2> */}
+          <div className="markdown-preview" dangerouslySetInnerHTML={{ __html: marked(markdownContent) }} />
+        </div>
+      </div>
+    );
 }
 
 export default App;
